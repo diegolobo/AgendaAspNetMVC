@@ -121,6 +121,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PessoaController.cs" />
+    <Compile Include="Controllers\TelefoneController.cs" />
     <Compile Include="DAL\AgendaContext.cs" />
     <Compile Include="DAL\AgendaInitializer.cs" />
     <Compile Include="Global.asax.cs">
@@ -166,6 +167,11 @@
     <Content Include="Views\Pessoa\Details.cshtml" />
     <Content Include="Views\Pessoa\Edit.cshtml" />
     <Content Include="Views\Pessoa\Index.cshtml" />
+    <Content Include="Views\Telefone\Create.cshtml" />
+    <Content Include="Views\Telefone\Delete.cshtml" />
+    <Content Include="Views\Telefone\Details.cshtml" />
+    <Content Include="Views\Telefone\Edit.cshtml" />
+    <Content Include="Views\Telefone\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
