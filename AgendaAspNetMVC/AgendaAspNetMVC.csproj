@@ -131,6 +131,7 @@
     </Compile>
     <Compile Include="Models\Pessoa.cs" />
     <Compile Include="Models\Telefone.cs" />
+    <Compile Include="Models\Teste.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

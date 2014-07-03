@@ -7,7 +7,7 @@ using AgendaAspNetMVC.Models;
 
 namespace AgendaAspNetMVC.DAL
 {
-    public class AgendaInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<AgendaContext>
+    public class AgendaInitializer : System.Data.Entity.DropCreateDatabaseAlways<AgendaContext>
     {
         protected override void Seed(AgendaContext context)
         {
@@ -19,8 +19,11 @@ namespace AgendaAspNetMVC.DAL
                 new Pessoa{Nome="Claudio",Email="claudio@carlos.com.br"}
             };
 
-            pessoas.ForEach(s => context.Pessoas.Add(s));
-            context.SaveChanges();
+            //pessoas.ForEach(s => context.Pessoas.Add(s));
+            //context.SaveChanges();
+            var repPessoa = new UnitOfWork<Pessoa>();
+            pessoas.ForEach(s => repPessoa.Repository.Insert(s));
+            repPessoa.Save();
 
             var telefones = new List<Telefone>
             {
@@ -34,8 +37,12 @@ namespace AgendaAspNetMVC.DAL
                 new Telefone{PessoaID=4,Numero="8800-3234",Tipo=Tipo.CELULAR}
             };
 
-            telefones.ForEach(s => context.Telefones.Add(s));
-            context.SaveChanges();
+            //telefones.ForEach(s => context.Telefones.Add(s));
+            //context.SaveChanges();
+
+            var repTelefone = new UnitOfWork<Telefone>();
+            telefones.ForEach(s => repTelefone.Repository.Insert(s));
+            repTelefone.Save();
         }        
 
     }
