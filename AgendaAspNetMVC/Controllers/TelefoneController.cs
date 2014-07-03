@@ -18,7 +18,7 @@ namespace AgendaAspNetMVC.Controllers
         // GET: Telefone
         public ActionResult Index()
         {
-            var telefoens = db.Telefoens.Include(t => t.Pessoa);
+            var telefoens = db.Telefones.Include(t => t.Pessoa);
             return View(telefoens.ToList());
         }
 
@@ -29,7 +29,7 @@ namespace AgendaAspNetMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Telefone telefone = db.Telefoens.Find(id);
+            Telefone telefone = db.Telefones.Find(id);
             if (telefone == null)
             {
                 return HttpNotFound();
@@ -53,7 +53,7 @@ namespace AgendaAspNetMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Telefoens.Add(telefone);
+                db.Telefones.Add(telefone);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -69,7 +69,7 @@ namespace AgendaAspNetMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Telefone telefone = db.Telefoens.Find(id);
+            Telefone telefone = db.Telefones.Find(id);
             if (telefone == null)
             {
                 return HttpNotFound();
@@ -102,7 +102,7 @@ namespace AgendaAspNetMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Telefone telefone = db.Telefoens.Find(id);
+            Telefone telefone = db.Telefones.Find(id);
             if (telefone == null)
             {
                 return HttpNotFound();
@@ -115,8 +115,8 @@ namespace AgendaAspNetMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Telefone telefone = db.Telefoens.Find(id);
-            db.Telefoens.Remove(telefone);
+            Telefone telefone = db.Telefones.Find(id);
+            db.Telefones.Remove(telefone);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

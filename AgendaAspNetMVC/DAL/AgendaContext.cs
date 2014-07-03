@@ -18,7 +18,7 @@ namespace AgendaAspNetMVC.DAL
         }
 
         public DbSet<Pessoa> Pessoas { get; set; }
-        public DbSet<Telefone> Telefoens { get; set; }
+        public DbSet<Telefone> Telefones { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

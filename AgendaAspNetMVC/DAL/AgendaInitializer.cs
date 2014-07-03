@@ -34,7 +34,7 @@ namespace AgendaAspNetMVC.DAL
                 new Telefone{PessoaID=4,Numero="8800-3234",Tipo=Tipo.CELULAR}
             };
 
-            telefones.ForEach(s => context.Telefoens.Add(s));
+            telefones.ForEach(s => context.Telefones.Add(s));
             context.SaveChanges();
         }        
 
