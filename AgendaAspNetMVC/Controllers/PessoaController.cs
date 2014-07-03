@@ -13,12 +13,14 @@ namespace AgendaAspNetMVC.Controllers
 {
     public class PessoaController : Controller
     {
-        private AgendaContext db = new AgendaContext();
+        //private AgendaContext db = new AgendaContext();
+        private UnitOfWork unitOfWork = new UnitOfWork();
 
         // GET: Pessoa
         public ActionResult Index()
         {
-            return View(db.Pessoas.ToList());
+            //return View(db.Pessoas.ToList());
+            return View(unitOfWork.PessoaRepository.Get());
         }
 
         // GET: Pessoa/Details/5
@@ -28,7 +30,8 @@ namespace AgendaAspNetMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pessoa pessoa = db.Pessoas.Find(id);
+            //Pessoa pessoa = db.Pessoas.Find(id);
+            Pessoa pessoa = unitOfWork.PessoaRepository.GetByID(id);
             if (pessoa == null)
             {
                 return HttpNotFound();
@@ -51,8 +54,10 @@ namespace AgendaAspNetMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Pessoas.Add(pessoa);
-                db.SaveChanges();
+                //db.Pessoas.Add(pessoa);
+                //db.SaveChanges();
+                unitOfWork.PessoaRepository.Insert(pessoa);
+                unitOfWork.Save();
                 return RedirectToAction("Index");
             }
 
@@ -66,7 +71,8 @@ namespace AgendaAspNetMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pessoa pessoa = db.Pessoas.Find(id);
+            //Pessoa pessoa = db.Pessoas.Find(id);
+            Pessoa pessoa = unitOfWork.PessoaRepository.GetByID(id);
             if (pessoa == null)
             {
                 return HttpNotFound();
@@ -83,8 +89,10 @@ namespace AgendaAspNetMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(pessoa).State = EntityState.Modified;
-                db.SaveChanges();
+                //db.Entry(pessoa).State = EntityState.Modified;
+                //db.SaveChanges();
+                unitOfWork.PessoaRepository.Update(pessoa);
+                unitOfWork.Save();
                 return RedirectToAction("Index");
             }
             return View(pessoa);
@@ -97,7 +105,8 @@ namespace AgendaAspNetMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pessoa pessoa = db.Pessoas.Find(id);
+            //Pessoa pessoa = db.Pessoas.Find(id);
+            Pessoa pessoa = unitOfWork.PessoaRepository.GetByID(id);
             if (pessoa == null)
             {
                 return HttpNotFound();
@@ -110,9 +119,12 @@ namespace AgendaAspNetMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Pessoa pessoa = db.Pessoas.Find(id);
-            db.Pessoas.Remove(pessoa);
-            db.SaveChanges();
+            //Pessoa pessoa = db.Pessoas.Find(id);
+            //db.Pessoas.Remove(pessoa);
+            //db.SaveChanges();
+            Pessoa pessoa = unitOfWork.PessoaRepository.GetByID(id);
+            unitOfWork.PessoaRepository.Delete(id);
+            unitOfWork.Save();
             return RedirectToAction("Index");
         }
 
@@ -120,7 +132,8 @@ namespace AgendaAspNetMVC.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                //db.Dispose();
+                unitOfWork.Dispose();
             }
             base.Dispose(disposing);
         }
