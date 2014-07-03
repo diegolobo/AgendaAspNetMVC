@@ -6,23 +6,24 @@ using System.Web;
 
 namespace AgendaAspNetMVC.DAL
 {
-    public class UnitOfWork : IDisposable
+    public class UnitOfWork<TEntity> : IDisposable where TEntity : class
     {
         private AgendaContext context = new AgendaContext();
-        private GenericRepository<Pessoa> pessoaRepository;
+        //private GenericRepository<Pessoa> pessoaRepository;
         private GenericRepository<Telefone> telefoneRepository;
+        private GenericRepository<TEntity> repository;
 
-        public GenericRepository<Pessoa> PessoaRepository
-        {
-            get
-            {
-                if (this.pessoaRepository == null)
-                {
-                    this.pessoaRepository = new GenericRepository<Pessoa>(context);
-                }
-                return pessoaRepository;
-            }
-        }
+        //public GenericRepository<Pessoa> PessoaRepository
+        //{
+        //    get
+        //    {
+        //        if (this.pessoaRepository == null)
+        //        {
+        //            this.pessoaRepository = new GenericRepository<Pessoa>(context);
+        //        }
+        //        return pessoaRepository;
+        //    }
+        //}
 
         public GenericRepository<Telefone> TelefoneRepository
         {
@@ -36,6 +37,17 @@ namespace AgendaAspNetMVC.DAL
             }
         }
 
+        public GenericRepository<TEntity> Repository
+        {
+            get 
+            {
+                if (repository == null)
+                {
+                    repository = new GenericRepository<TEntity>(context);
+                }
+                return repository;
+            }
+        }
         public void Save()
         {
             context.SaveChanges();
